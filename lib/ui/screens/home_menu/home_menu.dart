@@ -1,5 +1,4 @@
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:wonders/common_libs.dart';
 import 'package:wonders/logic/data/wonder_data.dart';
 import 'package:wonders/ui/common/app_backdrop.dart';
@@ -21,12 +20,11 @@ class _HomeMenuState extends State<HomeMenu> {
   double _btnSize(BuildContext context) => (context.sizePx.shortestSide / 5).clamp(60, 100);
 
   void _handleAboutPressed(BuildContext context) async {
-    PackageInfo packageInfo = await PackageInfo.fromPlatform();
     if (!mounted) return;
     showAboutDialog(
       context: context,
       applicationName: $strings.appName,
-      applicationVersion: packageInfo.version,
+      applicationVersion: "",
       applicationLegalese: '© 2022 gskinner',
       children: [AboutDialogContent()],
       applicationIcon: Container(
@@ -80,7 +78,7 @@ class _HomeMenuState extends State<HomeMenu> {
                   _buildIconGrid(context)
                       .animate()
                       .fade(duration: $styles.times.fast)
-                      .scale(begin: .8, curve: Curves.easeOut),
+                      .scale(begin: Offset(0.8, 0), curve: Curves.easeOut),
                   Gap($styles.insets.lg),
                   _buildBottomBtns(context),
                   //Spacer(),

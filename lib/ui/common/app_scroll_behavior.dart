@@ -10,7 +10,12 @@ class AppScrollBehavior extends ScrollBehavior {
     final devices = Set<PointerDeviceKind>.from(super.dragDevices);
     if (kDebugMode) {
       devices.add(PointerDeviceKind.mouse);
+      devices.add(PointerDeviceKind.touch);
+      devices.add(PointerDeviceKind.trackpad);
     }
+    devices.add(PointerDeviceKind.mouse);
+    devices.add(PointerDeviceKind.touch);
+    devices.add(PointerDeviceKind.trackpad);
     return devices;
   }
 

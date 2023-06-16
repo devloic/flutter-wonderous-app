@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:desktop_window/desktop_window.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:wonders/common_libs.dart';
 import 'package:wonders/logic/common/platform_info.dart';
 import 'package:wonders/ui/common/modals/fullscreen_video_viewer.dart';
@@ -40,9 +39,6 @@ class AppLogic {
     await AppBitmaps.init();
 
     // Set preferred refresh rate to the max possible (the OS may ignore this)
-    if (PlatformInfo.isAndroid) {
-      await FlutterDisplayMode.setHighRefreshRate();
-    }
 
     // Settings
     await settingsLogic.load();
@@ -80,14 +76,14 @@ class AppLogic {
   /// Called from the UI layer once a MediaQuery has been obtained
   void handleAppSizeChanged() {
     /// Disable landscape layout on smaller form factors
-    bool isSmall = display.size.shortestSide / display.devicePixelRatio < 600;
+    bool isSmall = display.physicalSize.shortestSide / display.devicePixelRatio < 600;
     supportedOrientations = isSmall ? [Axis.vertical] : [Axis.vertical, Axis.horizontal];
     _updateSystemOrientation();
   }
 
-  Display get display => PlatformDispatcher.instance.displays.first;
-
-  bool shouldUseNavRail() => display.size.width > display.size.height && display.size.height > 250;
+  FlutterView get display => PlatformDispatcher.instance.views.first;
+  bool shouldUseNavRail() =>
+      display.physicalSize.width > display.physicalSize.height && display.physicalSize.height > 250;
 
   /// Enable landscape, portrait or both. Views can call this method to override the default settings.
   /// For example, the [FullscreenVideoViewer] always wants to enable both landscape and portrait.

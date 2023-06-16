@@ -39,11 +39,6 @@ class _WallpaperPhotoScreenState extends State<WallpaperPhotoScreen> {
     }
   }
 
-  void _handleSharePhoto(BuildContext context, String wonderName) async {
-    final boundary = _containerKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-    wallpaperLogic.share(context, boundary, name: '${wonderName}_wallpaper', wonderName: wonderName);
-  }
-
   void _handleTextToggle(bool? isActive) {
     setState(() => _showTitleText = isActive ?? !_showTitleText);
   }
@@ -145,7 +140,7 @@ class _WallpaperPhotoScreenState extends State<WallpaperPhotoScreen> {
                     icon: PlatformInfo.isIOS ? AppIcons.share_ios : AppIcons.share_android,
                     bgColor: $styles.colors.offWhite,
                     color: $styles.colors.black,
-                    onPressed: () => _handleSharePhoto(context, wonderData.title),
+                    onPressed: () => (),
                     semanticLabel: $strings.wallpaperSemanticSharePhoto,
                     size: 44,
                   ),

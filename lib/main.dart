@@ -1,5 +1,6 @@
+import 'dart:ui';
+
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:wonders/common_libs.dart';
 import 'package:wonders/logic/collectibles_logic.dart';
@@ -10,6 +11,7 @@ import 'package:wonders/logic/timeline_logic.dart';
 import 'package:wonders/logic/unsplash_logic.dart';
 import 'package:wonders/logic/wallpaper_logic.dart';
 import 'package:wonders/logic/wonders_logic.dart';
+import 'package:wonders/ui/common/app_scroll_behavior.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -30,21 +32,13 @@ class WondersApp extends StatelessWidget with GetItMixin {
   WondersApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final locale = watchX((SettingsLogic s) => s.currentLocale);
     return MaterialApp.router(
+      scrollBehavior: AppScrollBehavior(),
       routeInformationProvider: appRouter.routeInformationProvider,
       routeInformationParser: appRouter.routeInformationParser,
-      locale: locale == null ? null : Locale(locale),
       debugShowCheckedModeBanner: false,
       routerDelegate: appRouter.routerDelegate,
       theme: ThemeData(fontFamily: $styles.text.body.fontFamily, useMaterial3: true),
-      localizationsDelegates: const [
-        AppLocalizations.delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }

@@ -5,7 +5,6 @@ import 'dart:ui' as ui;
 import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:wonders/common_libs.dart';
 import 'package:wonders/logic/common/platform_info.dart';
 import 'package:wonders/ui/common/modals/app_modals.dart';
@@ -33,18 +32,6 @@ class WallPaperLogic {
           showModal(context, child: OkModal(msg: $strings.wallpaperModalSaveComplete));
         }
       }
-    }
-  }
-
-  Future<void> share(BuildContext context, RenderRepaintBoundary boundary,
-      {required String name, String wonderName = 'Wonderous'}) async {
-    Uint8List? pngBytes = await _getPngFromBoundary(boundary);
-    if (pngBytes != null) {
-      final directory = (await getApplicationDocumentsDirectory()).path;
-      File imgFile = File('$directory/$name.png');
-      await imgFile.writeAsBytes(pngBytes);
-      Share.shareXFiles([XFile(imgFile.path)],
-          subject: '$wonderName Wallpaper', text: 'Check out this $wonderName wallpaper from the Wonderous app!');
     }
   }
 }

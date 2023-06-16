@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:intl/intl_standalone.dart';
+import 'package:intl/intl_standalone.dart' if (dart.library.html) 'package:intl/intl_browser.dart';
+
 import 'package:wonders/common_libs.dart';
 
 class LocaleLogic {
@@ -13,7 +14,7 @@ class LocaleLogic {
 
   Future<void> load() async {
     Locale locale = _defaultLocal;
-    if (kIsWeb) return; // exit early on web as [findSystemLocale] throws errors as of Dec, 2022
+    //if (kIsWeb) return; // exit early on web as [findSystemLocale] throws errors as of Dec, 2022
     if (kDebugMode) {
       // locale = Locale('zh'); // uncomment to test chinese
     }
