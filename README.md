@@ -1,4 +1,7 @@
-# I applied some changes to the Wonderous app so it runs and builds on the web platform
+# I applied some changes to the Wonderous app so it runs and builds on the web platform 
+and inside browser extensions
+
+  
 
 
 
